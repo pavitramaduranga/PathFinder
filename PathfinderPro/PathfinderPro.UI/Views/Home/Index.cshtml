@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title">ASP.NET</h1>
+        <p class="lead">Enter Start and End nodes</p>
+
+        <div class="form-group mb-3">
+            <!-- added mb-3 for margin-bottom -->
+            <label for="fromNode" class="form-label">From Node</label>
+            <input type="text" class="form-control" id="fromNode" placeholder="From Node" onkeypress="return onlyLetters(event)" />
+        </div>
+        <div class="form-group mb-4">
+            <!-- added mb-4 for more margin-bottom -->
+            <label for="toNode" class="form-label">To Node</label>
+            <input type="text" class="form-control" id="toNode" placeholder="To Node" onkeypress="return onlyLetters(event)" />
+        </div>
+
+        <!-- Learn More button -->
+        <p><button id="learnMoreBtn" class="btn btn-primary btn-md">Calculate Path</button></p>
+    </section>
+
+    <div class="row">
+        <!-- Additional content can go here -->
+    </div>
+</main>
+
+<script>
+    // Function to allow only letters in the text boxes
+    function onlyLetters(event) {
+        var char = String.fromCharCode(event.which);
+        if (!(/[a-zA-Z]/.test(char))) {
+            event.preventDefault();
+        }
+    }
+
+    // AJAX call when the Learn More button is clicked
+    document.getElementById('learnMoreBtn').addEventListener('click', function () {
+        var fromNode = document.getElementById('fromNode').value;
+        var toNode = document.getElementById('toNode').value;
+
+        // Example AJAX call (You'll need to replace with your actual AJAX logic)
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://your-api-url.com?from=' + fromNode + '&to=' + toNode, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Handle the response received from the server
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send();
+    });
+</script>
