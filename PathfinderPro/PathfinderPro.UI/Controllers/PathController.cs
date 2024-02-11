@@ -1,9 +1,5 @@
 ﻿using PathfinderPro.Bussiness.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace PathfinderPro.UI.Controllers
@@ -20,9 +16,16 @@ namespace PathfinderPro.UI.Controllers
         }
 
         // GET api/<controller>
-        public IHttpActionResult Get(string from,string to)
+        public IHttpActionResult Get(string from, string to)
         {
-            var graph = _graphService.BuildGraph();
+            if (string.IsNullOrWhiteSpace(from) || string.IsNullOrWhiteSpace(to))
+            {
+                return BadRequest("Source and destination nodes cannot be empty.");
+            }
+
+            var server = HttpContext.Current.Server;
+            string dataFilePath = server.MapPath("~/bin/Data/GraphData.json");
+            var graph = _graphService.BuildGraph(dataFilePath);
             var bestPath = _pathfinderService.ShortestPath(from, to, graph);
             return Ok(bestPath);
         }
@@ -33,19 +36,6 @@ namespace PathfinderPro.UI.Controllers
             return "value";
         }
 
-        // POST api/<controller>
-        public void Post([FromBody] string value)
-        {
-        }
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }

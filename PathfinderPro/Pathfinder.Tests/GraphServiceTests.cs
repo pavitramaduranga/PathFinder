@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PathfinderPro.Bussiness;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Pathfinder.Tests
@@ -10,12 +12,13 @@ namespace Pathfinder.Tests
     {
         private GraphService _graphService;
         private List<Node> _graph;
+        private readonly string dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "GraphData.json");
 
         [TestInitialize]
         public void Setup()
         {
             _graphService = new GraphService();
-            _graph = _graphService.BuildGraph();
+            _graph = _graphService.BuildGraph(dataFilePath);
         }
 
         [TestMethod]

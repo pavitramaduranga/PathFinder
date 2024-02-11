@@ -2,6 +2,7 @@
 using PathfinderPro.Bussiness.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PathfinderPro.ConsoleApp
 {
@@ -10,7 +11,8 @@ namespace PathfinderPro.ConsoleApp
         static void Main(string[] args)
         {
             IGraphService graphService = new GraphService();
-            List<Node> graphNodes = graphService.BuildGraph();
+            string dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "GraphData.json");
+            List<Node> graphNodes = graphService.BuildGraph(dataFilePath);
 
             Console.WriteLine("Enter the FROM node:");
             string fromNode = Console.ReadLine();

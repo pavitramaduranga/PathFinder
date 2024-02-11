@@ -2,6 +2,7 @@
 using PathfinderPro.Bussiness;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Pathfinder.Tests
 {
@@ -11,13 +12,14 @@ namespace Pathfinder.Tests
         private PathfinderService _pathfinderService;
         private GraphService _graphService;
         private List<Node> _graph;
-
+        private readonly string dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "GraphData.json");
+        
         [TestInitialize]
         public void Setup()
         {
             _pathfinderService = new PathfinderService();
             _graphService = new GraphService();
-            _graph = _graphService.BuildGraph();
+            _graph = _graphService.BuildGraph(dataFilePath);
         }
 
         [TestMethod]

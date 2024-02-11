@@ -4,6 +4,6 @@ namespace PathfinderPro.Bussiness.Interfaces
 {
     public interface IGraphService
     {
-        List<Node> BuildGraph();
+        List<Node> BuildGraph(string dataFilePath);
     }
 }

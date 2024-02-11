@@ -1,79 +1,65 @@
-﻿using PathfinderPro.Bussiness.Interfaces;
+﻿using Newtonsoft.Json;
+using PathfinderPro.Bussiness.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace PathfinderPro.Bussiness
 {
     public class GraphService : IGraphService
     {
-        public List<Node> BuildGraph()
+        public List<Node> BuildGraph(string dataFilePath)
         {
-            Node A = new Node { Name = "A" };
-            Node B = new Node { Name = "B" };
-            Node C = new Node { Name = "C" };
-            Node D = new Node { Name = "D" };
-            Node E = new Node { Name = "E" };
-            Node F = new Node { Name = "F" };
-            Node G = new Node { Name = "G" };
-            Node H = new Node { Name = "H" };
-            Node I = new Node { Name = "I" };
-
-            // Add edges for A
-            A.Edges.Add(new Edge { Target = B, Distance = 4 });
-            A.Edges.Add(new Edge { Target = C, Distance = 6 });
-            // Add reverse edge for bidirectional path
-            B.Edges.Add(new Edge { Target = A, Distance = 4 });
-            C.Edges.Add(new Edge { Target = A, Distance = 6 });
-
-            // Add edges for B
-            B.Edges.Add(new Edge { Target = F, Distance = 2 });
-            // Add reverse edge for bidirectional path
-            F.Edges.Add(new Edge { Target = B, Distance = 2 });
-
-            // Add edges for C
-            C.Edges.Add(new Edge { Target = D, Distance = 8 });
-            // Add reverse edge for bidirectional path
-            D.Edges.Add(new Edge { Target = C, Distance = 8 });
-
-            // Add edges for D
-            D.Edges.Add(new Edge { Target = G, Distance = 1 });
-            // Add reverse edge for bidirectional path
-            G.Edges.Add(new Edge { Target = D, Distance = 1 });
-
-            // Add edges for E
-            E.Edges.Add(new Edge { Target = D, Distance = 4 });
-            // Add reverse edge for bidirectional path
-            D.Edges.Add(new Edge { Target = E, Distance = 4 });
-
-            E.Edges.Add(new Edge { Target = F, Distance = 3 });
-            // Add reverse edge for bidirectional path
-            F.Edges.Add(new Edge { Target = E, Distance = 3 });
-
-            // Unidirectional edge from E to B
-            E.Edges.Add(new Edge { Target = B, Distance = 2 });
-
-            // Add edges for F
-            F.Edges.Add(new Edge { Target = H, Distance = 6 });
-            // Add reverse edge for bidirectional path
-            H.Edges.Add(new Edge { Target = F, Distance = 6 });
-
-            // Add edges for G
-            G.Edges.Add(new Edge { Target = H, Distance = 5 });
-            // Add reverse edge for bidirectional path
-            H.Edges.Add(new Edge { Target = G, Distance = 5 });
-
-            G.Edges.Add(new Edge { Target = I, Distance = 5 });
-            // Add reverse edge for bidirectional path
-            I.Edges.Add(new Edge { Target = G, Distance = 5 });
-
-            // Add edges for H
-            H.Edges.Add(new Edge { Target = I, Distance = 8 });
-            // Add reverse edge for bidirectional path
-            I.Edges.Add(new Edge { Target = H, Distance = 8 });
-
-            // The graph is represented as a list of nodes
-            List<Node> graph = new List<Node> { A, B, C, D, E, F, G, H, I };
-
+            
+            if (string.IsNullOrEmpty(dataFilePath))
+            {
+                throw new ArgumentException("Data file path not found.");
+            }
+            List<Node> graph = BuildGraphFromJson(dataFilePath);
             return graph;
+        }
+
+        private List<Node> BuildGraphFromJson(string dataFilePath)
+        {
+            string json = File.ReadAllText(dataFilePath);
+            var tempNodes = JsonConvert.DeserializeObject<List<TempNode>>(json);
+            var nodeDictionary = new Dictionary<string, Node>();
+
+            // First pass: create all nodes
+            foreach (var tempNode in tempNodes)
+            {
+                var node = new Node { Name = tempNode.Name, Edges = new List<Edge>() };
+                nodeDictionary.Add(node.Name, node);
+            }
+
+            // Second pass: create edges
+            foreach (var tempNode in tempNodes)
+            {
+                var node = nodeDictionary[tempNode.Name];
+                foreach (var tempEdge in tempNode.Edges)
+                {
+                    var edge = new Edge
+                    {
+                        Target = nodeDictionary[tempEdge.Target],
+                        Distance = tempEdge.Distance
+                    };
+                    node.Edges.Add(edge);
+                }
+            }
+
+            return new List<Node>(nodeDictionary.Values);
+        }
+
+        private class TempNode
+        {
+            public string Name { get; set; }
+            public List<TempEdge> Edges { get; set; }
+        }
+
+        private class TempEdge
+        {
+            public string Target { get; set; }
+            public int Distance { get; set; }
         }
     }
 }
