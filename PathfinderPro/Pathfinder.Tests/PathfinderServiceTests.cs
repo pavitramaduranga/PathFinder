@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PathfinderPro.Bussiness;
+using PathfinderPro.Business;
 using System;
 using System.Collections.Generic;
 using System.IO;

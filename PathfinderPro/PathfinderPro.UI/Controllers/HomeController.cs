@@ -1,4 +1,4 @@
-﻿using PathfinderPro.Bussiness.Interfaces;
+﻿using PathfinderPro.Business.Interfaces;
 using System.Web.Mvc;
 
 namespace PathfinderPro.UI.Controllers

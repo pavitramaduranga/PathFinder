@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PathfinderPro.Bussiness\PathfinderPro.Bussiness.csproj">
+    <ProjectReference Include="..\PathfinderPro.Bussiness\PathfinderPro.Business.csproj">
       <Project>{35766465-d035-4cd0-a7fe-209eeea302c4}</Project>
-      <Name>PathfinderPro.Bussiness</Name>
+      <Name>PathfinderPro.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

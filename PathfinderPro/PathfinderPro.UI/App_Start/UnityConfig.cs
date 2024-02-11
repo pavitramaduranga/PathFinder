@@ -1,5 +1,5 @@
-using PathfinderPro.Bussiness;
-using PathfinderPro.Bussiness.Interfaces;
+using PathfinderPro.Business;
+using PathfinderPro.Business.Interfaces;
 using System;
 using System.Web.Http;
 using Unity;

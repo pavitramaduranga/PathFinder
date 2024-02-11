@@ -267,9 +267,9 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PathfinderPro.Bussiness\PathfinderPro.Bussiness.csproj">
+    <ProjectReference Include="..\PathfinderPro.Bussiness\PathfinderPro.Business.csproj">
       <Project>{35766465-D035-4CD0-A7FE-209EEEA302C4}</Project>
-      <Name>PathfinderPro.Bussiness</Name>
+      <Name>PathfinderPro.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

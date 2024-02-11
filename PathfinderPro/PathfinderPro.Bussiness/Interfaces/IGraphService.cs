@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PathfinderPro.Bussiness.Interfaces
+namespace PathfinderPro.Business.Interfaces
 {
     public interface IGraphService
     {

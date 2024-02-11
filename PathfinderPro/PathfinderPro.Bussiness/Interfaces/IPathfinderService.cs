@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PathfinderPro.Bussiness.Interfaces
+namespace PathfinderPro.Business.Interfaces
 {
     public interface IPathfinderService
     {

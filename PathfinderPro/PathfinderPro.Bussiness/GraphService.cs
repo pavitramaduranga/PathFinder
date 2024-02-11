@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using PathfinderPro.Bussiness.Interfaces;
+using PathfinderPro.Business.Interfaces;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 
-namespace PathfinderPro.Bussiness
+namespace PathfinderPro.Business
 {
     public class GraphService : IGraphService
     {

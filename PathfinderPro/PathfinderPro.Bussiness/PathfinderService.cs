@@ -1,9 +1,9 @@
-﻿using PathfinderPro.Bussiness.Interfaces;
+﻿using PathfinderPro.Business.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PathfinderPro.Bussiness
+namespace PathfinderPro.Business
 {
     public class PathfinderService : IPathfinderService
     {

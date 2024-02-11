@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderPro.ConsoleApp", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderPro.UI", "PathfinderPro.UI\PathfinderPro.UI.csproj", "{9E0F1A23-F6C2-4AD2-AFD5-EA8755781819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderPro.Bussiness", "PathfinderPro.Bussiness\PathfinderPro.Bussiness.csproj", "{35766465-D035-4CD0-A7FE-209EEEA302C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderPro.Business", "PathfinderPro.Bussiness\PathfinderPro.Business.csproj", "{35766465-D035-4CD0-A7FE-209EEEA302C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder.Tests", "Pathfinder.Tests\Pathfinder.Tests.csproj", "{E27397EF-8BF9-4289-BFD0-E4A260082678}"
 EndProject

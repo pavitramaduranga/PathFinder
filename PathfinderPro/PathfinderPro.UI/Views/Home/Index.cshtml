@@ -78,13 +78,11 @@
     }
 
     document.getElementById('learnMoreBtn').addEventListener('click', function (event) {
-        
+        clearResponse();
         if (!validateNodes()) {
             event.preventDefault();
         }
         else {
-            clearResponse();
-
             var fromNode = document.getElementById('fromNode').value;
             var toNode = document.getElementById('toNode').value;
 
