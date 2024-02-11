@@ -68,6 +68,7 @@
                     console.log(xhr.responseText);
                 }
                 else {
+                    document.getElementById('successResponseDiv').style.display = 'none';
                     var errorAlert = document.getElementById('errorAlert');
                     errorAlert.innerHTML = 'Error occured while calculating the best path.';
                     errorAlert.style.display = 'block';
