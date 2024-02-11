@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderPro.UI", "Pathfin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PathfinderPro.Bussiness", "PathfinderPro.Bussiness\PathfinderPro.Bussiness.csproj", "{35766465-D035-4CD0-A7FE-209EEEA302C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pathfinder.Tests", "Pathfinder.Tests\Pathfinder.Tests.csproj", "{E27397EF-8BF9-4289-BFD0-E4A260082678}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{35766465-D035-4CD0-A7FE-209EEEA302C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35766465-D035-4CD0-A7FE-209EEEA302C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35766465-D035-4CD0-A7FE-209EEEA302C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E27397EF-8BF9-4289-BFD0-E4A260082678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E27397EF-8BF9-4289-BFD0-E4A260082678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E27397EF-8BF9-4289-BFD0-E4A260082678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E27397EF-8BF9-4289-BFD0-E4A260082678}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{E77B646B-E2E7-44F7-880B-0C64E7BF9B30} = {6B71A7DA-AD09-4C5C-ADF2-D8F4FB59B5BD}
 		{9E0F1A23-F6C2-4AD2-AFD5-EA8755781819} = {AD38A51E-9EE7-4D12-99D7-7E91C1211633}
 		{35766465-D035-4CD0-A7FE-209EEEA302C4} = {58FD5F00-0ABE-45D7-8F81-F69FE124A1AD}
+		{E27397EF-8BF9-4289-BFD0-E4A260082678} = {BDEC53D9-7F76-4A8E-9295-9EA65AFFC109}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06E0991C-03D3-4AAA-A1D7-F09689EF4E74}
