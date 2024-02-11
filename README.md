@@ -1,12 +1,14 @@
-# PathFinder
+# Path Finder
 
 - Solution structure
   
-  <img width="212" alt="image" src="https://github.com/pavitramaduranga/PathFinder/assets/4363523/b3efe26b-673d-4ac2-89cb-73f19c7fe7f5">
+  <img width="222" alt="image" src="https://github.com/pavitramaduranga/PathFinder/assets/4363523/e15ab0d0-7b1e-422b-9a18-d07a3676a2d6">
+
 
 - Dependency Injection is configured with Unity.
-- Unit testing added with Microsoft.VisualStudio.TestTools
-- Graph can be configured from the GraphData.json file in the Business project.
+- Graph data is loaded with the Singleton pattern.
+- Unit testing added with Microsoft.VisualStudio.TestTools.
+- Graph can be configured from the GraphData.json file in the PathfinderPro.Business project.
   
    <img width="358" alt="image" src="https://github.com/pavitramaduranga/PathFinder/assets/4363523/15ca0b35-b951-4c31-9105-461e09ce87a4">
  <br>
@@ -19,7 +21,8 @@
  <br>
 <b>Web App</b>
 <br>
- <img width="774" alt="image" src="https://github.com/pavitramaduranga/PathFinder/assets/4363523/6e745dce-4a6a-48c2-9a3f-84bdd8a227e5">
+<img width="913" alt="image" src="https://github.com/pavitramaduranga/PathFinder/assets/4363523/2fb69d16-2777-457c-b061-8a2787e1ee2d">
+
 
 
 
