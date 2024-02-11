@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PathfinderPro.Bussiness.Interfaces;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,15 +9,25 @@ namespace PathfinderPro.Bussiness
 {
     public class GraphService : IGraphService
     {
+        private List<Node> _graph;
+
+        public GraphService()
+        {
+            _graph = new List<Node>();
+        }
+
+        public List<string> GetNodesInGraph() {
+            return _graph.Select(node => node.Name).ToList();
+        }
+
         public List<Node> BuildGraph(string dataFilePath)
         {
-            
             if (string.IsNullOrEmpty(dataFilePath))
             {
                 throw new ArgumentException("Data file path not found.");
             }
-            List<Node> graph = BuildGraphFromJson(dataFilePath);
-            return graph;
+            _graph = BuildGraphFromJson(dataFilePath);
+            return _graph;
         }
 
         private List<Node> BuildGraphFromJson(string dataFilePath)
