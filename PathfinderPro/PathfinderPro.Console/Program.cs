@@ -90,7 +90,7 @@ namespace PathfinderPro.ConsoleApp
         {
             graphService = new GraphService();
             string dataFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "GraphData.json");
-            graphNodes = graphService.BuildGraph(dataFilePath);
+            graphNodes = graphService.GetGraph(dataFilePath);
         }
 
         private static void DisplayAvailableNodes(List<string> nodesInGraph)

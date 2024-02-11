@@ -10,6 +10,8 @@ namespace PathfinderPro.Bussiness
     public class GraphService : IGraphService
     {
         private List<Node> _graph;
+        private readonly object _lock = new object();
+        private bool _isGraphBuilt = false;
 
         public GraphService()
         {
@@ -20,13 +22,24 @@ namespace PathfinderPro.Bussiness
             return _graph.Select(node => node.Name).ToList();
         }
 
-        public List<Node> BuildGraph(string dataFilePath)
+        public List<Node> GetGraph(string dataFilePath)
         {
             if (string.IsNullOrEmpty(dataFilePath))
             {
                 throw new ArgumentException("Data file path not found.");
             }
-            _graph = BuildGraphFromJson(dataFilePath);
+
+            if (!_isGraphBuilt)
+            {
+                lock (_lock)
+                {
+                    if (!_isGraphBuilt)
+                    {
+                        _graph = BuildGraphFromJson(dataFilePath);
+                        _isGraphBuilt = true;
+                    }
+                }
+            }
             return _graph;
         }
 

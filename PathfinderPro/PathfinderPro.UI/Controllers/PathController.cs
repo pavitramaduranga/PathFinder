@@ -21,7 +21,7 @@ namespace PathfinderPro.UI.Controllers
 
             var server = HttpContext.Current.Server;
             string dataFilePath = server.MapPath("~/bin/Data/GraphData.json");
-            _graph = _graphService.BuildGraph(dataFilePath);
+            _graph = _graphService.GetGraph(dataFilePath);
         }
 
         // GET api/<controller>

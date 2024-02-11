@@ -18,7 +18,7 @@ namespace Pathfinder.Tests
         public void Setup()
         {
             _graphService = new GraphService();
-            _graph = _graphService.BuildGraph(dataFilePath);
+            _graph = _graphService.GetGraph(dataFilePath);
         }
 
         [TestMethod]
