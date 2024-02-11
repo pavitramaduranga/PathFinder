@@ -21,12 +21,12 @@
         <!-- Learn More button -->
         <p><button id="learnMoreBtn" class="btn btn-primary btn-md">Calculate Path</button></p>
 
-        <div class="form-group mb-3">
-            <!-- added mb-3 for margin-bottom -->
-            <!--<label for="fromNode" class="form-label">From Node</label>-->
-            <br />
+        <div class="form-group mb-3 alert alert-success" id="successResponseDiv" style="display: none;">
+            <p id="initialNodes" style=" width:50%" />
             <p id="bestPath" style=" width:50%" />
+            <p id="distance" style=" width:50%" />
         </div>
+        <div id="errorAlert" class="alert alert-danger" style="display:none;"></div>
     </section>
 
     <div class="row">
@@ -35,7 +35,7 @@
 </main>
 
 <script>
-    // Function to allow only letters in the text boxes
+
     function onlyLetters(event) {
         var char = String.fromCharCode(event.which);
         if (!(/[a-zA-Z]/.test(char))) {
@@ -43,24 +43,76 @@
         }
     }
 
-    // AJAX call when the Learn More button is clicked
-    document.getElementById('learnMoreBtn').addEventListener('click', function () {
+    document.getElementById('learnMoreBtn').addEventListener('click', function (event) {
+        
+        if (!validateNodes()) {
+            event.preventDefault();
+        }
+        else {
+            clearResponse();
+
+            var fromNode = document.getElementById('fromNode').value;
+            var toNode = document.getElementById('toNode').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/api/path?from=' + fromNode + '&to=' + toNode, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var responseData = JSON.parse(xhr.responseText);
+                    document.getElementById('successResponseDiv').style.display = 'block';
+                    document.getElementById('errorAlert').style.display = 'none';
+                    $('<div>', { text: formatInitialNodeData(fromNode, toNode) }).appendTo($('#initialNodes'));
+                    $('<div>', { text: formatPathData(responseData) }).appendTo($('#bestPath'));
+                    $('<div>', { text: formatDistanceData(responseData) }).appendTo($('#distance'));
+
+                    console.log(xhr.responseText);
+                }
+                else {
+                    var errorAlert = document.getElementById('errorAlert');
+                    errorAlert.innerHTML = 'Error occured while calculating the best path.';
+                    errorAlert.style.display = 'block';
+                    return false;
+                }
+            };
+            xhr.send();
+        }
+    });
+
+    function formatInitialNodeData(fromNode, toNode) {
+        return 'Start Node ' + fromNode + ' End Node ' + toNode;
+    }
+
+    function formatPathData(data) {
+        return 'Best Path: ' + data.nodeNames.join(', ');
+    }
+
+    function formatDistanceData(data) {
+        return 'Shortest Distance: ' + data.distance;
+    }
+
+    function validateNodes() {
         var fromNode = document.getElementById('fromNode').value;
         var toNode = document.getElementById('toNode').value;
+        var errorAlert = document.getElementById('errorAlert');
 
-        // Example AJAX call (You'll need to replace with your actual AJAX logic)
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/api/path?from=' + fromNode + '&to=' + toNode, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
+        var letterRegex = /^[A-Za-z]$/;
 
-                // Add a list Data for the Employee.    
-                $('<div>', { text: xhr.responseText }).appendTo($('#bestPath'));    
+        if (fromNode.match(letterRegex) && toNode.match(letterRegex)) {
+            errorAlert.style.display = 'none';
+            return true;
+        } else {
+            errorAlert.innerHTML = 'Both From Node and To Node must be a single English letter.';
+            errorAlert.style.display = 'block';
+            return false;
+        }
+    }
 
-                // Handle the response received from the server
-                console.log(xhr.responseText);
-            }
-        };
-        xhr.send();
-    });
+    function clearResponse() {
+        document.getElementById('errorAlert').style.display = 'none';
+        document.getElementById('successResponseDiv').style.display = 'none';
+        document.getElementById("initialNodes").innerHTML = "";
+        document.getElementById("bestPath").innerHTML = "";
+        document.getElementById("distance").innerHTML = "";
+    }
+
 </script>
