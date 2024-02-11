@@ -20,6 +20,13 @@
 
         <!-- Learn More button -->
         <p><button id="learnMoreBtn" class="btn btn-primary btn-md">Calculate Path</button></p>
+
+        <div class="form-group mb-3">
+            <!-- added mb-3 for margin-bottom -->
+            <!--<label for="fromNode" class="form-label">From Node</label>-->
+            <br />
+            <p id="bestPath" style=" width:50%" />
+        </div>
     </section>
 
     <div class="row">
@@ -43,9 +50,13 @@
 
         // Example AJAX call (You'll need to replace with your actual AJAX logic)
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://your-api-url.com?from=' + fromNode + '&to=' + toNode, true);
+        xhr.open('GET', '/api/path?from=' + fromNode + '&to=' + toNode, true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
+
+                // Add a list Data for the Employee.    
+                $('<div>', { text: xhr.responseText }).appendTo($('#bestPath'));    
+
                 // Handle the response received from the server
                 console.log(xhr.responseText);
             }

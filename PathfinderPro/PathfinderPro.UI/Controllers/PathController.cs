@@ -20,10 +20,10 @@ namespace PathfinderPro.UI.Controllers
         }
 
         // GET api/<controller>
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(string from,string to)
         {
             var graph = _graphService.BuildGraph();
-            var bestPath = _pathfinderService.ShortestPath("A", "E", graph);
+            var bestPath = _pathfinderService.ShortestPath(from, to, graph);
             return Ok(bestPath);
         }
 
