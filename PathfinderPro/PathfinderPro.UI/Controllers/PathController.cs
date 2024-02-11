@@ -24,7 +24,6 @@ namespace PathfinderPro.UI.Controllers
             _graph = _graphService.GetGraph(dataFilePath);
         }
 
-        // GET api/<controller>
         public IHttpActionResult Get(string from, string to)
         {
             if (string.IsNullOrWhiteSpace(from) || string.IsNullOrWhiteSpace(to))
@@ -36,10 +35,10 @@ namespace PathfinderPro.UI.Controllers
             return Ok(bestPath);
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        public IHttpActionResult GetNodeList()
         {
-            return "value";
+            var nodesInGraph = _graphService.GetNodesInGraph();
+            return Ok(nodesInGraph);
         }
 
 

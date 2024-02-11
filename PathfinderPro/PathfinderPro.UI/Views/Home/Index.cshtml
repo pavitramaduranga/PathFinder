@@ -4,20 +4,24 @@
 
 <main>
     <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">Enter Start and End nodes</p>
-
+        <h1 id="title">Path Finder Pro</h1>
+        <br>
         <div class="form-group mb-3">
             <!-- added mb-3 for margin-bottom -->
-            <label for="fromNode" class="form-label">From Node</label>
-            <input type="text" class="form-control" id="fromNode" placeholder="From Node" onkeypress="return onlyLetters(event)" />
-        </div>
-        <div class="form-group mb-4">
-            <!-- added mb-4 for more margin-bottom -->
-            <label for="toNode" class="form-label">To Node</label>
-            <input type="text" class="form-control" id="toNode" placeholder="To Node" onkeypress="return onlyLetters(event)" />
+            <label id="availableNodes" class="form-label">-</label>
         </div>
 
+
+        <p class="lead">Select Start and End nodes</p>
+
+        <div class="form-group mb-3">
+            <label for="fromNode" class="form-label">From Node</label>
+            <select class="form-control" id="fromNode"></select>
+        </div>
+        <div class="form-group mb-4">
+            <label for="toNode" class="form-label">To Node</label>
+            <select class="form-control" id="toNode"></select>
+        </div>
         <!-- Learn More button -->
         <p><button id="learnMoreBtn" class="btn btn-primary btn-md">Calculate Path</button></p>
 
@@ -28,19 +32,49 @@
         </div>
         <div id="errorAlert" class="alert alert-danger" style="display:none;"></div>
     </section>
-
-    <div class="row">
-        <!-- Additional content can go here -->
-    </div>
 </main>
 
 <script>
 
-    function onlyLetters(event) {
-        var char = String.fromCharCode(event.which);
-        if (!(/[a-zA-Z]/.test(char))) {
-            event.preventDefault();
-        }
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchAvailableNodes();
+    });
+
+    function fetchAvailableNodes() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/api/path/getNodeList', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var nodes = JSON.parse(xhr.responseText);
+                displayAvailableNodes(nodes);
+            } else if (xhr.readyState == 4 && xhr.status != 200) {
+                console.error('Error fetching available nodes');
+            }
+        };
+        xhr.send();
+    }
+
+    function displayAvailableNodes(nodes) {
+
+        var nodesLabel = document.getElementById('availableNodes');
+        nodesLabel.textContent = 'Available Nodes: ' + nodes.join(', ');
+
+        var fromNodeSelect = document.getElementById('fromNode');
+        var toNodeSelect = document.getElementById('toNode');
+
+        // Clear existing options
+        fromNodeSelect.innerHTML = '';
+        toNodeSelect.innerHTML = '';
+
+        // Add an empty option (optional)
+        fromNodeSelect.add(new Option('Select a Node', ''));
+        toNodeSelect.add(new Option('Select a Node', ''));
+
+        // Populate dropdowns with node names
+        nodes.forEach(function (node) {
+            fromNodeSelect.add(new Option(node, node));
+            toNodeSelect.add(new Option(node, node));
+        });
     }
 
     document.getElementById('learnMoreBtn').addEventListener('click', function (event) {
@@ -80,15 +114,15 @@
     });
 
     function formatInitialNodeData(fromNode, toNode) {
-        return 'Start Node ' + fromNode + ' End Node ' + toNode;
+        return 'Start Node ' + fromNode + ' and End Node ' + toNode;
     }
 
     function formatPathData(data) {
-        return 'Best Path: ' + data.nodeNames.join(', ');
+        return 'Best Path : ' + data.nodeNames.join(', ');
     }
 
     function formatDistanceData(data) {
-        return 'Shortest Distance: ' + data.distance;
+        return 'Shortest Distance : ' + data.distance;
     }
 
     function validateNodes() {
@@ -102,7 +136,7 @@
             errorAlert.style.display = 'none';
             return true;
         } else {
-            errorAlert.innerHTML = 'Both From Node and To Node must be a single English letter.';
+            errorAlert.innerHTML = 'Select both From Node and To Node.';
             errorAlert.style.display = 'block';
             return false;
         }
