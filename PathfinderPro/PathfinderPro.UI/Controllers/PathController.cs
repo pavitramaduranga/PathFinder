@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PathfinderPro.Bussiness.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,10 +10,21 @@ namespace PathfinderPro.UI.Controllers
 {
     public class PathController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        private readonly IGraphService _graphService;
+        private readonly IPathfinderService _pathfinderService;
+
+        public PathController(IGraphService graphService, IPathfinderService pathfinderService)
         {
-            return new string[] { "value1", "value2" };
+            _graphService = graphService;
+            _pathfinderService = pathfinderService;
+        }
+
+        // GET api/<controller>
+        public IHttpActionResult Get()
+        {
+            var graph = _graphService.BuildGraph();
+            var bestPath = _pathfinderService.ShortestPath("A", "E", graph);
+            return Ok(bestPath);
         }
 
         // GET api/<controller>/5
