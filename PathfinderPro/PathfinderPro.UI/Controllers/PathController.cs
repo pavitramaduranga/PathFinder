@@ -1,8 +1,6 @@
 ﻿using PathfinderPro.Business;
 using PathfinderPro.Business.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Web;
 using System.Web.Http;
 
@@ -40,7 +38,5 @@ namespace PathfinderPro.UI.Controllers
             var nodesInGraph = _graphService.GetNodesInGraph();
             return Ok(nodesInGraph);
         }
-
-
     }
 }
